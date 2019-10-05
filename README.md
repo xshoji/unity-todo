@@ -1,2 +1,2 @@
 # unity-todo
-Todo apps by unity.
+Todo app by unity.
