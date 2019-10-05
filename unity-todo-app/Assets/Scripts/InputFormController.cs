@@ -38,8 +38,7 @@ public class InputFormController : MonoBehaviour
         // > https://monaski.hatenablog.com/entry/2015/11/03/125957
         // > TextMesh Pro - From unity UI to TextMeshPro -Unity Forum
         // > https://forum.unity.com/threads/from-unity-ui-to-textmeshpro.463619/
-        taskElementObject.transform.Find("Panel").transform.Find("TaskText").GetComponent<TextMeshProUGUI>().text = inputField.text;
-
+        taskElementObject.transform.Find("TaskRawImage").transform.Find("TaskText").GetComponent<TextMeshProUGUI>().text = inputField.text;
 
         //        taskElementObject.GetComponent<Text>().text = inputField.text;
         inputField.Select();
