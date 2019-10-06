@@ -7,17 +7,18 @@ public class TaskElementController : MonoBehaviour
     public string Key;
     public void DeleteSelf() {
 
-        // タスク一覧取得
-        var tasks = StorageManager.GetAll();
-        if (tasks == null)
+        // Todo一覧取得
+        var todoList = StorageManager.GetAll();
+        if (todoList == null)
         {
-            Debug.Log("tasks : null");
-            tasks = new Dictionary<string, string>();
+            Debug.Log("todoList : null");
+            todoList = new Dictionary<string, string>();
         }
-        Debug.Log("tasks count : " + tasks.Count);
-        // タスクから削除して保存
-        tasks.Remove(Key);
-        StorageManager.Save(tasks);
+        Debug.Log("todoList count before deleting : " + todoList.Count);
+        // Todoから削除して保存
+        todoList.Remove(Key);
+        StorageManager.Save(todoList);
+        Debug.Log("todoList count after deleting : " + todoList.Count);
 
         // 一覧からも削除
         Destroy(gameObject);

@@ -19,8 +19,8 @@ public class StorageManager
         return Deserialize<Dictionary<string, string>>(value);
     }
 
-    public static void Save(Dictionary<string, string> taskList) {
-        PlayerPrefs.SetString(masterKey, Serialize<Dictionary<string, string>>(taskList));
+    public static void Save(Dictionary<string, string> todoList) {
+        PlayerPrefs.SetString(masterKey, Serialize<Dictionary<string, string>>(todoList));
     }
 
     private static T Deserialize<T>(string value) where T : class

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class InputFormController : MonoBehaviour
+public class InputFormObjectController : MonoBehaviour
 {
 
     public InputField inputField;
@@ -26,20 +26,20 @@ public class InputFormController : MonoBehaviour
 
     public void AddTask()
     {
-        // タスク一覧取得
-        var tasks = StorageManager.GetAll();
-        if (tasks == null) {
-            Debug.Log("tasks : null");
-            tasks = new Dictionary<string, string>();
+        // Todo一覧取得
+        var todoList = StorageManager.GetAll();
+        if (todoList == null) {
+            Debug.Log("todoList : null");
+            todoList = new Dictionary<string, string>();
         }
-        Debug.Log("tasks count : " + tasks.Count);
-        // タスクに加えて保存
+        Debug.Log("todoList count : " + todoList.Count);
+        // Todoに加えて保存
         var key = Convert.ToString((DateTime.UtcNow - UnixEpoch).TotalMilliseconds);
-        tasks.Add(key, inputField.text);
-        StorageManager.Save(tasks);
+        todoList.Add(key, inputField.text);
+        StorageManager.Save(todoList);
 
-        // タスク一覧に加える
-        taskArea.transform.GetComponent<ScrollContentController>().AddTask(key, inputField.text);
+        // Todo一覧に加える
+        taskArea.transform.GetComponent<TodoListContentController>().AddTodo(key, inputField.text);
 
         // フォームをクリアする
         inputField.Select();
