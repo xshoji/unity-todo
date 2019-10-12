@@ -27,7 +27,7 @@ public class TodoListContentController : MonoBehaviour
         GameObject todoElementPrefab = (GameObject)Resources.Load("Prefabs/TodoElement");
         GameObject todoElementObject = Instantiate(todoElementPrefab) as GameObject;
         todoElementObject.transform.GetComponent<TaskElementController>().Key = key;
-        todoElementObject.transform.Find("TaskRawImage").transform.Find("TaskText").GetComponent<TextMeshProUGUI>().text = todoText;
+        todoElementObject.transform.Find("TaskRawImage").transform.Find("TodoText").GetComponent<Text>().text = todoText;
         todoElementObject.transform.SetParent(transform);
         // > Unity - Scripting API： Transform.localScale
         // > https://docs.unity3d.com/ScriptReference/Transform-localScale.html?_ga=2.65667310.1187445378.1569860193-888141676.1564340563
