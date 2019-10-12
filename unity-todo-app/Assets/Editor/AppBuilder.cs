@@ -21,17 +21,13 @@ public class AppBuilder
         // // buildReport.resultを見て、戻り値を決定する
         if (buildReport.summary.result == BuildResult.Succeeded)
         {
-            const int kSuccessCode = 0;
             PrintString("Success! Output : " + outputPath);
             PrintString(buildReport.summary.ToString());
-            //            EditorApplication.Exit(kSuccessCode);
         }
         else
         {
-            const int kErrorCode = 1;
             PrintString("Error!");
             PrintString(buildReport.summary.ToString());
-//            EditorApplication.Exit(kErrorCode);
         }
     }
 
@@ -49,17 +45,13 @@ public class AppBuilder
         BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), outputPath, BuildTarget.iOS, BuildOptions.None);
         if (buildReport.summary.result == BuildResult.Succeeded)
         {
-            const int kSuccessCode = 0;
             PrintString("Success! Output : " + outputPath);
             PrintString(buildReport.summary.ToString());
-            //            EditorApplication.Exit(kSuccessCode);
         }
         else
         {
-            const int kErrorCode = 1;
             PrintString("Error!");
             PrintString(buildReport.summary.ToString());
-            //            EditorApplication.Exit(kErrorCode);
         }
     }
 
@@ -76,17 +68,13 @@ public class AppBuilder
         BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), outputPath, BuildTarget.StandaloneOSX, BuildOptions.None);
         if (buildReport.summary.result == BuildResult.Succeeded)
         {
-            const int kSuccessCode = 0;
             PrintString("Success! Output : " + outputPath);
             PrintString(buildReport.summary.ToString());
-            //            EditorApplication.Exit(kSuccessCode);
         }
         else
         {
-            const int kErrorCode = 1;
             PrintString("Error!");
             PrintString(buildReport.summary.ToString());
-            //            EditorApplication.Exit(kErrorCode);
         }
     }
 

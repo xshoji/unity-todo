@@ -44,7 +44,6 @@ public class InputFormObjectController : MonoBehaviour
         taskArea.transform.GetComponent<TodoListContentController>().AddTodo(key, inputField.text);
 
         // フォームをクリアする
-        inputField.Select();
         inputField.text = null;
     }
 }
