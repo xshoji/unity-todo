@@ -1,28 +1,36 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
 
 public class AppBuilder
 {
+    private static int argumentCount = 1;
 
     [MenuItem("Build/Android向けビルド")]
     static void buildForAndroid()
     {
         bumpBuildNumberForAndroid();
-        BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), "/tmp/todo-app.apk", BuildTarget.Android, BuildOptions.None);
+        String outputPath = GetArgument(11);
+        if (outputPath == null)
+        {
+            outputPath = "/tmp/todo-app";
+        }
+        outputPath = outputPath + ".apk";
+        BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), outputPath, BuildTarget.Android, BuildOptions.None);
         // // buildReport.resultを見て、戻り値を決定する
         if (buildReport.summary.result == BuildResult.Succeeded)
         {
             const int kSuccessCode = 0;
-            Debug.Log("Success!!");
-            Debug.Log(buildReport.summary);
-//            EditorApplication.Exit(kSuccessCode);
+            PrintString("Success! Output : " + outputPath);
+            PrintString(buildReport.summary.ToString());
+            //            EditorApplication.Exit(kSuccessCode);
         }
         else
         {
             const int kErrorCode = 1;
-            Debug.Log("Error!!");
-            Debug.Log(buildReport.summary);
+            PrintString("Error!");
+            PrintString(buildReport.summary.ToString());
 //            EditorApplication.Exit(kErrorCode);
         }
     }
@@ -32,17 +40,53 @@ public class AppBuilder
     {
         bumpBuildNumberForIOS();
         // 出力パス。絶対パスで指定すること。また、最後にスラッシュを入れないこと。PostBuildProcess に渡る path が通常ビルドと異なってしまい、思わぬバグを引き起こすことがあります。
-        string path = "/tmp/todo-app";
-        BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), path, BuildTarget.iOS, BuildOptions.None);
+        String outputPath = GetArgument(11);
+        if (outputPath == null)
+        {
+            outputPath = "/tmp/todo-app";
+        }
+        outputPath = outputPath + "_ios";
+        BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), outputPath, BuildTarget.iOS, BuildOptions.None);
         if (buildReport.summary.result == BuildResult.Succeeded)
         {
             const int kSuccessCode = 0;
-            EditorApplication.Exit(kSuccessCode);
+            PrintString("Success! Output : " + outputPath);
+            PrintString(buildReport.summary.ToString());
+            //            EditorApplication.Exit(kSuccessCode);
         }
         else
         {
             const int kErrorCode = 1;
-            EditorApplication.Exit(kErrorCode);
+            PrintString("Error!");
+            PrintString(buildReport.summary.ToString());
+            //            EditorApplication.Exit(kErrorCode);
+        }
+    }
+
+    [MenuItem("Build/Mac向けビルド")]
+    static void buildForMac()
+    {
+        // 出力パス。絶対パスで指定すること。また、最後にスラッシュを入れないこと。PostBuildProcess に渡る path が通常ビルドと異なってしまい、思わぬバグを引き起こすことがあります。
+        String outputPath = GetArgument(11);
+        if (outputPath == null)
+        {
+            outputPath = "/tmp/todo-app";
+        }
+        outputPath = outputPath + ".app";
+        BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), outputPath, BuildTarget.StandaloneOSX, BuildOptions.None);
+        if (buildReport.summary.result == BuildResult.Succeeded)
+        {
+            const int kSuccessCode = 0;
+            PrintString("Success! Output : " + outputPath);
+            PrintString(buildReport.summary.ToString());
+            //            EditorApplication.Exit(kSuccessCode);
+        }
+        else
+        {
+            const int kErrorCode = 1;
+            PrintString("Error!");
+            PrintString(buildReport.summary.ToString());
+            //            EditorApplication.Exit(kErrorCode);
         }
     }
 
@@ -67,5 +111,27 @@ public class AppBuilder
             scenes[i] = EditorBuildSettings.scenes[i].path;
         }
         return scenes;
+    }
+
+    static void PrintString(string text) {
+        System.Console.WriteLine(text + "\n");
+        Debug.Log(text);
+    }
+
+    static String GetArgument(int index) {
+        String[] arguments = Environment.GetCommandLineArgs();
+
+        int i = 0;
+        foreach (String argument in arguments)
+        {
+            PrintString(i.ToString());
+            PrintString(argument);
+            i++;
+        }
+
+        if (index < arguments.Length) {
+            return arguments[index];
+        }
+        return null;
     }
 }
