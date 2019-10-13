@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskElementController : MonoBehaviour
+public class TodoElementController : MonoBehaviour
 {
     public string Key;
     public void DeleteSelf() {

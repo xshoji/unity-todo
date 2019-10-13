@@ -26,7 +26,7 @@ public class TodoListContentController : MonoBehaviour
         // プレハブからインスタンスを生成
         GameObject todoElementPrefab = (GameObject)Resources.Load("Prefabs/TodoElement");
         GameObject todoElementObject = Instantiate(todoElementPrefab) as GameObject;
-        todoElementObject.transform.GetComponent<TaskElementController>().Key = key;
+        todoElementObject.transform.GetComponent<TodoElementController>().Key = key;
         todoElementObject.transform.Find("TaskRawImage").transform.Find("TodoText").GetComponent<Text>().text = todoText;
         todoElementObject.transform.SetParent(transform);
         // > Unity - Scripting API： Transform.localScale
