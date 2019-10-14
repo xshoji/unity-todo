@@ -166,7 +166,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.xshoji.todoapp
   buildNumber:
-    iPhone: 4
+    iPhone: 5
   AndroidBundleVersionCode: 10
   AndroidMinSdkVersion: 28
   AndroidTargetSdkVersion: 28
