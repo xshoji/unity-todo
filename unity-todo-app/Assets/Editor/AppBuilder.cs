@@ -11,6 +11,7 @@ public class AppBuilder
     static void buildForAndroid()
     {
         bumpBuildNumberForAndroid();
+        // 出力パス。絶対パスで指定すること。また、最後にスラッシュを入れないこと。PostBuildProcess に渡る path が通常ビルドと異なってしまい、思わぬバグを引き起こすことがあります。
         String outputPath = GetArgument(11);
         if (outputPath == null)
         {
@@ -35,7 +36,6 @@ public class AppBuilder
     static void buildForIOS()
     {
         bumpBuildNumberForIOS();
-        // 出力パス。絶対パスで指定すること。また、最後にスラッシュを入れないこと。PostBuildProcess に渡る path が通常ビルドと異なってしまい、思わぬバグを引き起こすことがあります。
         String outputPath = GetArgument(11);
         if (outputPath == null)
         {
@@ -58,7 +58,6 @@ public class AppBuilder
     [MenuItem("Build/Mac向けビルド")]
     static void buildForMac()
     {
-        // 出力パス。絶対パスで指定すること。また、最後にスラッシュを入れないこと。PostBuildProcess に渡る path が通常ビルドと異なってしまい、思わぬバグを引き起こすことがあります。
         String outputPath = GetArgument(11);
         if (outputPath == null)
         {
@@ -66,6 +65,28 @@ public class AppBuilder
         }
         outputPath = outputPath + ".app";
         BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), outputPath, BuildTarget.StandaloneOSX, BuildOptions.None);
+        if (buildReport.summary.result == BuildResult.Succeeded)
+        {
+            PrintString("Success! Output : " + outputPath);
+            PrintString(buildReport.summary.ToString());
+        }
+        else
+        {
+            PrintString("Error!");
+            PrintString(buildReport.summary.ToString());
+        }
+    }
+
+    [MenuItem("Build/Windows向けビルド")]
+    static void buildForWindows()
+    {
+        String outputPath = GetArgument(11);
+        if (outputPath == null)
+        {
+            outputPath = "/tmp/todo-app";
+        }
+        outputPath = outputPath + ".exe";
+        BuildReport buildReport = BuildPipeline.BuildPlayer(GetAllScenePaths(), outputPath, BuildTarget.StandaloneWindows64, BuildOptions.None);
         if (buildReport.summary.result == BuildResult.Succeeded)
         {
             PrintString("Success! Output : " + outputPath);

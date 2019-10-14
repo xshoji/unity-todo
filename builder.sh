@@ -16,7 +16,7 @@ Required:
   -o, --outputApplicationPath /path/to/app : Output application path. ( the extension is not needed. )
 
 Optional:
-  -p, --platform android   : Platform. [ android | ios | mac ]  [ default: android ]
+  -p, --platform android   : Platform. [ android | ios | mac | windows ]  [ default: android ]
   -v, --version 2019.2.6f1 : Unity version. [ default: 2019.2.6f1 ]
 
 Helper options:
@@ -74,6 +74,7 @@ __EOT__
 
 
 
+
 SCRIPT_DIR="$(cd $(dirname "${BASH_SOURCE:-$0}") && pwd)"
 APPLICATION_DIR="${SCRIPT_DIR}/unity-todo-app"
 UNITY_CMD="/Applications/Unity/Hub/Editor/${VERSION}/Unity.app/Contents/MacOS/Unity"
@@ -81,10 +82,12 @@ BUILD_LOG="/tmp/build.log"
 
 if [[ "${PLATFORM}" == "android" ]]; then
     ${UNITY_CMD} -batchmode -quit -logFile "${BUILD_LOG}" -projectPath "${APPLICATION_DIR}" -buildTarget android -executeMethod AppBuilder.buildForAndroid "${OUTPUT_APPLICATION_PATH}"
-elif [[ "${PLATFORM}" == "mac" ]]; then
-    ${UNITY_CMD} -batchmode -quit -logFile "${BUILD_LOG}" -projectPath "${APPLICATION_DIR}" -buildTarget mac -executeMethod AppBuilder.buildForMac "${OUTPUT_APPLICATION_PATH}"
 elif [[ "${PLATFORM}" == "ios" ]]; then
     ${UNITY_CMD} -batchmode -quit -logFile "${BUILD_LOG}" -projectPath "${APPLICATION_DIR}" -buildTarget ios -executeMethod AppBuilder.buildForIOS "${OUTPUT_APPLICATION_PATH}"
+elif [[ "${PLATFORM}" == "mac" ]]; then
+    ${UNITY_CMD} -batchmode -quit -logFile "${BUILD_LOG}" -projectPath "${APPLICATION_DIR}" -buildTarget mac -executeMethod AppBuilder.buildForMac "${OUTPUT_APPLICATION_PATH}"
+elif [[ "${PLATFORM}" == "windows" ]]; then
+    ${UNITY_CMD} -batchmode -quit -logFile "${BUILD_LOG}" -projectPath "${APPLICATION_DIR}" -buildTarget mac -executeMethod AppBuilder.buildForWindows "${OUTPUT_APPLICATION_PATH}"
 else
     printColored yellow "${PLATFORM} is Unknown."
     exit 1
@@ -94,6 +97,6 @@ fi
 #   -n builder \
 #   -d "Builder for unity application."  \
 #   -r outputApplicationPath,/path/to/app,"Output application path. ( the extension is not needed. )" \
-#   -o platform,android,"Platform. [ android | ios | mac ] ",android \
+#   -o platform,android,"Platform. [ android | ios | mac | windows ] ",android \
 #   -o version,2019.2.6f1,"Unity version.",2019.2.6f1 \
 #   -s > /tmp/test.sh; open /tmp/test.sh
