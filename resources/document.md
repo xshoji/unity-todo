@@ -6,3 +6,6 @@
 
 > fastlane で Unity のビルドと配布を自動化する - Qiita  
 > https://qiita.com/plasticstraw/items/b2d1faedde3c3cdaa3b5
+
+> Unityでフレームレート(fps)を取得する - TASOGARE GAMES BLOG  
+> http://tasogare-games.hatenablog.jp/entry/20150609/1433779228
